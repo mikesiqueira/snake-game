@@ -6,7 +6,7 @@ import java.awt.Point;
 public class Snake extends Shape {
 
 	private Direction direction;
-	
+
 	public Snake() {
 		super(Constants.SNAKE_COLOR);
 
@@ -14,13 +14,32 @@ public class Snake extends Shape {
 		Dimension dimension = new Dimension(Constants.SNAKE_PIECE_SIZE, Constants.SNAKE_PIECE_SIZE);
 		Rect rect = new Rect(location, dimension);
 		addRect(rect);
-		
+
 		for (int i = 1; i < Constants.SNAKE_INITIAL_SIZE; i++) {
 			rect = duplicateRect(rect);
 			addRect(rect);
 		}
 
 	}
-	
+
+	public void left() {
+		System.out.println ("LEFT");
+
+	}
+
+	public void right() {
+		System.out.println ("RIGHT");
+
+	}
+
+	public void up() {
+		System.out.println ("UP");
+
+	}
+
+	public void down() {
+		System.out.println ("DOWN");
+
+	}
 
 }

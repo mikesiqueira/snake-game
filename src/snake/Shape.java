@@ -42,8 +42,7 @@ public class Shape extends Drawable{
     }
     
 	@Override
-	public void draw(Graphics g) {
-	  g.setColor(getColor());	
+	public void draw(Graphics g) {	
 	  for (Rect r : rects) {
 		  r.draw(g);
 	  }

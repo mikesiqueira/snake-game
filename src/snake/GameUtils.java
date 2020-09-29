@@ -1,10 +1,14 @@
 package snake;
 
-public enum GameUtils {
+public class GameUtils {
 	
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN
 
+	public static void sleep(int millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+
+		}
+
+	}
 }

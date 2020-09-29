@@ -7,7 +7,7 @@ public class Game {
 
 	public void start() {
 		snake = new Snake();
-		gameWindow = new GameWindow();		
+		gameWindow = new GameWindow(snake);		
 		renderer = gameWindow.getRenderer();
 		
 		addElementsToScreen();
@@ -25,11 +25,7 @@ public class Game {
 		do {
 			gameWindow.repaint();	
 			
-			try {
-				Thread.sleep(30);
-			} catch(InterruptedException e) {
-				
-			}
+			
 			
 		} while (!isGameOver());
 		
