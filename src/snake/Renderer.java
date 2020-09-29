@@ -7,16 +7,18 @@ import java.util.List;
 public class Renderer {
 	
 	private List<Drawable> drawables;
+	private Graphics gImage;
 	
-	public Renderer() {
+	public Renderer(Graphics gImage) {
 		drawables = new ArrayList<>();
+		this.gImage = gImage;
 		
 	}
 	
-	public void render (Graphics g) {
+	public void render () {
 		for (Drawable d: drawables) {
-			g.setColor(d.getColor());	
-			d.draw(g);
+			gImage.setColor(d.getColor());	
+			d.draw(gImage);
 		}
 	}
 	

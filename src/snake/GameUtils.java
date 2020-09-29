@@ -1,5 +1,8 @@
 package snake;
 
+import java.util.List;
+
+
 public class GameUtils {
 	
 
@@ -11,4 +14,12 @@ public class GameUtils {
 		}
 
 	}
+	
+	public static void moveRects(List<Rect> rects) {
+		for (int i = rects.size() - 1; i >=1; i--) {
+			 rects.set(i,  rects.get(i-1));
+		}
+	}
+	
+	
 }

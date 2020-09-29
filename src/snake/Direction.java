@@ -1,6 +1,32 @@
 package snake;
 
 public enum Direction {
-	UP, DOWN, LEFT, RIGHT;
+	NONE (0,0), 
+	LEFT(-1,0),
+	RIGHT(1,0),
+	UP(0,-1), 
+	DOWN(0,1);	
+	
+	
+	int sgnX;
+	int sgnY;
+	
+	Direction(int sgnX, int sgnY){
+		this.sgnX = sgnX;
+		this.sgnY = sgnY;
+		
+	}
+	
+	public int getSgnx() {
+		return sgnX;
+	}
+	
+	public int getSgny() {
+		return sgnY;
+	}
+	
+	public boolean canChangeTo(Direction other) {
+		return !(sgnX + other.sgnX == 0 && sgnY + other.sgnY == 0);
+	}
 
 }

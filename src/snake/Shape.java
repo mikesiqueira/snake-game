@@ -23,20 +23,31 @@ public class Shape extends Drawable{
 		
 	}
 	
+	public Rect getFirstRect() {
+		return rects.get(0);
+		}
+	
+	public Rect getLastRect() {
+		return rects.get(rects.size() - 1);
+		}
+	
 
     public void addRect (Rect rect) {
     	rects.add(rect);
     }
 
-    public Rect duplicateRect(Rect baseRect) {
+    public Rect duplicateRect(Rect baseRect, Direction direction) {
     	int baseX = (int) baseRect.getLocation().getX();
-    	int baseY = (int)baseRect.getLocation().getY();
+    	int baseY = (int) baseRect.getLocation().getY();
         int baseWidth = (int)baseRect.getDimension().getWidth();
         int baseHeight = (int) baseRect.getDimension().getHeight();
         
-        Point location = new Point (baseX - baseWidth, baseY);
-        Dimension dimension = new Dimension(baseWidth, baseHeight);
-        Rect newRect = new Rect (location, dimension);
+        Point location = new Point (
+        		baseX + direction.getSgnx() * baseWidth, 
+        		baseY + direction.getSgny() * baseHeight);
+        
+      
+        Rect newRect = new Rect (location, baseRect.getDimension());
         return newRect;
         
     }
@@ -49,4 +60,13 @@ public class Shape extends Drawable{
 		
 	}
 
+	public boolean intersects (Rect rect) {
+		for(Rect r : rects) {
+			if (r.intersects(rect)) {
+				return true;
+			}			
+		}
+		
+		return false;
+	}
 }

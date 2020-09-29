@@ -1,6 +1,7 @@
 package snake;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -11,11 +12,11 @@ public class GameWindow extends JFrame implements KeyListener {
 
 	private Renderer renderer;
 	private Snake snake;
+	private Image buffer;
+	private Graphics gImage;
 
 	public GameWindow(Snake snake) {
-		this.snake = snake;
-		renderer = new Renderer();
-		
+		this.snake = snake;			 
 	
 
 		setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
@@ -25,6 +26,11 @@ public class GameWindow extends JFrame implements KeyListener {
 		setLocationRelativeTo(null);
 		addKeyListener(this);
 		setVisible(true);
+		
+		buffer = createImage(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+		gImage = buffer.getGraphics();;	   
+		renderer = new Renderer(gImage);		
+		
 
 	}
 	
@@ -33,9 +39,13 @@ public class GameWindow extends JFrame implements KeyListener {
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		renderer.render(g);
-
+	public void paint(Graphics gScreen) {
+		if (gImage == null || renderer == null) {
+			return;
+		}
+		
+		renderer.render();
+		gScreen.drawImage(buffer, 0, 0, null);
 	}
 
 	

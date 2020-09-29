@@ -9,6 +9,7 @@ public class Snake extends Shape {
 
 	public Snake() {
 		super(Constants.SNAKE_COLOR);
+		direction = Direction.NONE;
 
 		Point location = new Point(Constants.SNAKE_START_X, Constants.SNAKE_START_Y);
 		Dimension dimension = new Dimension(Constants.SNAKE_PIECE_SIZE, Constants.SNAKE_PIECE_SIZE);
@@ -16,30 +17,75 @@ public class Snake extends Shape {
 		addRect(rect);
 
 		for (int i = 1; i < Constants.SNAKE_INITIAL_SIZE; i++) {
-			rect = duplicateRect(rect);
+			rect = duplicateRect(rect, Direction.LEFT);
 			addRect(rect);
 		}
 
 	}
+	
+	public void move() {
+		if (direction != Direction.NONE) {
+			Rect head = getFirstRect();
+			//Rect tail = getLastRect();
+			
+			GameUtils.moveRects(getRects());
+			
+			Rect newHead = duplicateRect(head, direction);
+			getRects().set(0, newHead);			
+				
+			}
+		}
+		
+	
 
 	public void left() {
-		System.out.println ("LEFT");
+		if (direction.canChangeTo(Direction.LEFT)) {
+			direction = Direction.LEFT;
+			
+		}
+		
 
 	}
 
 	public void right() {
-		System.out.println ("RIGHT");
+		if (direction.canChangeTo(Direction.RIGHT)) {
+			direction = Direction.RIGHT;
+			
+		}
 
 	}
 
 	public void up() {
-		System.out.println ("UP");
+		if (direction.canChangeTo(Direction.UP)) {
+			direction = Direction.UP;
+			
+		}
 
 	}
 
 	public void down() {
-		System.out.println ("DOWN");
+		if (direction.canChangeTo(Direction.DOWN)) {
+			direction = Direction.DOWN;
+			
+		}
 
 	}
-
+	
+	public boolean collidesWithItself() {
+		Rect head = getFirstRect();
+		
+		for (int i = 1; i < getRects().size(); i++) {
+			if (head.intersects(getRects().get(i))){
+				return true;
+			}
+		}
+		
+	return false;
+	
+	}
+	
 }
+	
+	
+	
+

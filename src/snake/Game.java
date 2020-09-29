@@ -24,15 +24,16 @@ public class Game {
 	public void run() {
 		do {
 			gameWindow.repaint();	
-			
-			
-			
-		} while (!isGameOver());
+			snake.move();
+			GameUtils.sleep(30);		
+						
+		} while (!isGameOver());	
 		
+		gameWindow.dispose();
 		
 	}
 	
 	private boolean isGameOver() {
-		return false;
+		return snake.collidesWithItself();
 	}
 }
