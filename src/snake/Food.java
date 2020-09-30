@@ -6,26 +6,42 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 public class Food extends Rect {
-	
-	public Food(Rectangle drawingArea) {
+	private int eatenTimes;
+
+	public Food(Snake snake, Rectangle drawingArea) {
 		setColor(Color.GREEN);
-		setDimension(new Dimension(Constants.FOOD_SIZE , Constants.FOOD_SIZE));	
-		setRandomLocation (drawingArea);	
+		setDimension(new Dimension(Constants.FOOD_SIZE, Constants.FOOD_SIZE));
+		setRandomLocation(snake, drawingArea);
+	}
+
+	public void setRandomLocation(Snake snake, Rectangle drawingarea) {
+		int offset = 3;
+
+		do {
+			int minX = (int) drawingarea.getMinX() + offset;
+			int minY = (int) drawingarea.getMinY() + offset;
+
+			int maxX = (int) drawingarea.getMaxX() - Constants.FOOD_SIZE - offset;
+			int maxY = (int) drawingarea.getMaxY() - Constants.FOOD_SIZE - offset;
+
+			int randomX = GameUtils.random(minX, maxX);
+			int randomY = GameUtils.random(minY, maxY);
+
+			setLocation(new Point(randomX, randomY));
+		} while (snake.intersects(this));
+
+	}
+
+	public void checkIfEaten(Snake snake, Rectangle drawingarea) {
+		if (snake.intersects(this)) {
+			eatenTimes++;
+			setRandomLocation(snake, drawingarea);
+			snake.elongate();
+		}
 	}
 	
-	public void setRandomLocation(Rectangle drawingarea) {
-		int offset = 3;
-		
-		int minX = (int) drawingarea.getMinX() + offset;		
-		int minY = (int) drawingarea.getMinY() + offset;
-		
-		int maxX = (int) drawingarea.getMaxX() - Constants.FOOD_SIZE - offset;		
-		int maxY = (int) drawingarea.getMaxY() - Constants.FOOD_SIZE - offset;
-		
-		int randomX = GameUtils.random(minX, maxX);
-		int randomY = GameUtils.random(minY, maxY);
-		
-		setLocation(new Point(randomX, randomY));		
-	
+	public int getEatenTImes() {
+		return eatenTimes;
 	}
 }
+

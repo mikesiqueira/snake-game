@@ -12,7 +12,7 @@ public class Game {
 		snake = new Snake();
 		gameWindow = new GameWindow(snake);
 		renderer = gameWindow.getRenderer();
-		food = new Food(gameWindow.getDrawingArea());
+		food = new Food(snake, gameWindow.getDrawingArea());
 
 		addElementsToScreen();
 		run();
@@ -30,16 +30,24 @@ public class Game {
 		do {
 			gameWindow.repaint();
 			snake.move();
-			GameUtils.sleep(30);
+			food.checkIfEaten(snake, gameWindow.getDrawingArea());
+			GameUtils.sleep(Constants.SLEEP_TIME);
 
 		} while (!isGameOver());
 
-		gameWindow.dispose();
+		processGameOver();
 
 	}
 
 	private boolean isGameOver() {
 		return snake.collidesWithItself() || isSnakeHitBounds();
+	}
+	
+	private void processGameOver() {
+		renderer.remove(snake);
+		renderer.remove(food);
+		renderer.add(new GameOverText(food.getEatenTImes()));
+		gameWindow.repaint();
 	}
 
 	private boolean isSnakeHitBounds() {

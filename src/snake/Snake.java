@@ -35,6 +35,10 @@ public class Snake extends Shape {
 				
 			}
 		}
+	
+	public void elongate() {
+		
+	}
 		
 	
 
