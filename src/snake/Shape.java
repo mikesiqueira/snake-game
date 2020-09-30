@@ -1,7 +1,6 @@
 package snake;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -33,6 +32,7 @@ public class Shape extends Drawable{
 	
 
     public void addRect (Rect rect) {
+    	rect.setColor(getColor());
     	rects.add(rect);
     }
 
