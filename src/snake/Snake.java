@@ -6,6 +6,7 @@ import java.awt.Point;
 public class Snake extends Shape {
 
 	private Direction direction;
+	private int piecesToElongate;
 
 	public Snake() {
 		super(Constants.SNAKE_COLOR);
@@ -22,39 +23,40 @@ public class Snake extends Shape {
 		}
 
 	}
-	
+
 	public void move() {
 		if (direction != Direction.NONE) {
 			Rect head = getFirstRect();
-			//Rect tail = getLastRect();
-			
+			Rect tail = getLastRect();
 			GameUtils.moveRects(getRects());
-			
+
 			Rect newHead = duplicateRect(head, direction);
-			getRects().set(0, newHead);			
-				
+			getRects().set(0, newHead);
+
+			if (piecesToElongate > 0) {
+				getRects().add(tail);
+				piecesToElongate--;
 			}
+
 		}
-	
-	public void elongate() {
-		
 	}
-		
-	
+
+	//public void elongate() {
+
+	//}
 
 	public void left() {
 		if (direction.canChangeTo(Direction.LEFT)) {
 			direction = Direction.LEFT;
-			
+
 		}
-		
 
 	}
 
 	public void right() {
 		if (direction.canChangeTo(Direction.RIGHT)) {
 			direction = Direction.RIGHT;
-			
+
 		}
 
 	}
@@ -62,7 +64,7 @@ public class Snake extends Shape {
 	public void up() {
 		if (direction.canChangeTo(Direction.UP)) {
 			direction = Direction.UP;
-			
+
 		}
 
 	}
@@ -70,26 +72,22 @@ public class Snake extends Shape {
 	public void down() {
 		if (direction.canChangeTo(Direction.DOWN)) {
 			direction = Direction.DOWN;
-			
+
 		}
 
 	}
-	
+
 	public boolean collidesWithItself() {
 		Rect head = getFirstRect();
-		
+
 		for (int i = 1; i < getRects().size(); i++) {
-			if (head.intersects(getRects().get(i))){
+			if (head.intersects(getRects().get(i))) {
 				return true;
 			}
 		}
-		
-	return false;
-	
-	}
-	
-}
-	
-	
-	
 
+		return false;
+
+	}
+
+}

@@ -36,7 +36,7 @@ public class Food extends Rect {
 		if (snake.intersects(this)) {
 			eatenTimes++;
 			setRandomLocation(snake, drawingarea);
-			snake.elongate();
+			//snake.elongate();
 		}
 	}
 	
